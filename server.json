@@ -1,0 +1,43 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.json",
+  "name": "io.github.racehooks/racehooks-mcp",
+  "description": "MCP server for RaceHooks — motorsport analytics and data delivery for Claude, Cursor, and Windsurf. Manage webhooks, stream live F1 session data, query historical results and analytics, and run race simulations against your account.",
+  "status": "active",
+  "repository": {
+    "url": "https://github.com/racehooks/racehooks-mcp",
+    "source": "github"
+  },
+  "version": "0.2.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "racehooks-mcp",
+      "version": "0.2.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "RACEHOOKS_CLIENT_ID",
+          "description": "Your RaceHooks client ID. Get yours at racehooks.io.",
+          "isRequired": true,
+          "isSecret": false
+        },
+        {
+          "name": "RACEHOOKS_CLIENT_SECRET",
+          "description": "Your RaceHooks client secret.",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "RACEHOOKS_BASE_URL",
+          "description": "API base URL. Defaults to https://api.racehooks.io.",
+          "isRequired": false,
+          "isSecret": false,
+          "default": "https://api.racehooks.io"
+        }
+      ]
+    }
+  ]
+}

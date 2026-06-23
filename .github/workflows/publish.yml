@@ -32,3 +32,16 @@ jobs:
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Publish to the official MCP registry (registry.modelcontextprotocol.io).
+      # Ownership of the io.github.racehooks/* namespace is proven via GitHub OIDC
+      # (uses the id-token above); the npm package is validated via its `mcpName` field.
+      - name: Publish to MCP Registry
+        run: |
+          # Wait for the just-published npm version to propagate before validation.
+          sleep 20
+          url=$(curl -sSL https://api.github.com/repos/modelcontextprotocol/registry/releases/latest \
+            | grep -o '"browser_download_url": *"[^"]*linux_amd64.tar.gz"' | cut -d'"' -f4 | head -1)
+          curl -sSL "$url" | tar xz mcp-publisher
+          ./mcp-publisher login github-oidc
+          ./mcp-publisher publish

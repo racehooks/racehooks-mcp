@@ -1,7 +1,8 @@
 {
   "name": "racehooks-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server for RaceHooks \u2014 motorsport analytics and data delivery for Claude, Cursor, and Windsurf",
+  "mcpName": "io.github.racehooks/racehooks-mcp",
   "type": "module",
   "repository": {
     "type": "git",

@@ -15,7 +15,7 @@ import { registerFantasyTools } from "./tools/fantasy.js";
 // Per MCP best practice: never write to stdout in a stdio server.
 // All diagnostic output must go to stderr.
 
-const VERSION = "0.2.0";
+const VERSION = "0.2.1";
 
 async function main(): Promise<void> {
   const clientId     = process.env.RACEHOOKS_CLIENT_ID;
