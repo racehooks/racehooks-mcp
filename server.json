@@ -1,13 +1,14 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.racehooks/racehooks-mcp",
-  "description": "MCP server for RaceHooks — motorsport analytics and data delivery for Claude, Cursor, and Windsurf. Manage webhooks, stream live F1 session data, query historical results and analytics, and run race simulations against your account.",
-  "status": "active",
+  "title": "RaceHooks",
+  "description": "F1 race analytics & live timing for AI assistants \u2014 webhooks, results, and race simulations.",
+  "version": "0.2.1",
+  "websiteUrl": "https://racehooks.io",
   "repository": {
     "url": "https://github.com/racehooks/racehooks-mcp",
     "source": "github"
   },
-  "version": "0.2.1",
   "packages": [
     {
       "registryType": "npm",
