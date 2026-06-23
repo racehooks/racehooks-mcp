@@ -1,0 +1,22 @@
+name: racehooks-mcp
+displayName: RaceHooks
+description: F1 live timing tools for Claude, Cursor, and Windsurf — manage webhooks, stream live session data, and run race simulations against your account.
+homepage: https://racehooks.io
+license: MIT
+startCommand:
+  type: stdio
+  command: npx
+  args:
+    - "-y"
+    - "racehooks-mcp"
+config:
+  RACEHOOKS_CLIENT_ID:
+    description: Your RaceHooks client ID. Get yours at racehooks.io.
+    required: true
+  RACEHOOKS_CLIENT_SECRET:
+    description: Your RaceHooks client secret.
+    required: true
+  RACEHOOKS_BASE_URL:
+    description: API base URL. Defaults to https://api.racehooks.io.
+    required: false
+    default: https://api.racehooks.io
