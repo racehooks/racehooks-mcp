@@ -1,7 +1,7 @@
 {
   "name": "racehooks-mcp",
   "version": "0.2.0",
-  "description": "MCP server for RaceHooks — motorsport analytics and data delivery for Claude, Cursor, and Windsurf",
+  "description": "MCP server for RaceHooks \u2014 motorsport analytics and data delivery for Claude, Cursor, and Windsurf",
   "type": "module",
   "repository": {
     "type": "git",
@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.3",
-    "racehooks": "file:../racehooks-node"
+    "racehooks": "^0.3.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
