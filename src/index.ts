@@ -15,7 +15,7 @@ import { registerFantasyTools } from "./tools/fantasy.js";
 // Per MCP best practice: never write to stdout in a stdio server.
 // All diagnostic output must go to stderr.
 
-const VERSION = "0.2.1";
+const VERSION = "0.3.0";
 
 async function main(): Promise<void> {
   const clientId     = process.env.RACEHOOKS_CLIENT_ID;
@@ -145,7 +145,7 @@ async function main(): Promise<void> {
 
   server.prompt(
     "setup_race_event_webhook",
-    "Guided workflow: create a raceevent webhook subscription with optional driver, constructor, or position filters.",
+    "Guided workflow: create a events.race webhook subscription with optional driver, constructor, or position filters.",
     {
       webhookUrl:   z.string().url().describe("Your public HTTPS endpoint URL."),
       drivers:      z.string().optional().describe("Comma-separated TLA codes to filter, e.g. 'VER,NOR'. Leave blank for all."),
@@ -172,9 +172,9 @@ async function main(): Promise<void> {
           role: "user",
           content: {
             type: "text",
-            text: `Please create a raceevent webhook subscription for me.\n\n` +
+            text: `Please create a events.race webhook subscription for me.\n\n` +
                   `Endpoint URL: ${webhookUrl}${filterSummary}\n\n` +
-                  `Use the create_webhook tool with feedId "raceevent", webhookUrl "${webhookUrl}", ` +
+                  `Use the create_webhook tool with feedId "events.race", webhookUrl "${webhookUrl}", ` +
                   `and filters ${JSON.stringify(filters)}. ` +
                   `After creating it, call test_webhook to verify the endpoint is reachable. ` +
                   `Show me the webhookSecret and remind me to store it — it won't be shown again.`,
@@ -222,13 +222,13 @@ async function main(): Promise<void> {
           role: "user",
           content: {
             type: "text",
-            text: `Set up a raceevent webhook for my F1 Fantasy scoring engine.\n\n` +
+            text: `Set up a events.race webhook for my F1 Fantasy scoring engine.\n\n` +
                   `Endpoint: ${webhookUrl}\n` +
                   `Driver filter: ${driverList.length ? driverList.join(", ") : "none"}\n\n` +
                   filterNote + "\n\n" +
-                  `The raceevent feed emits: overtake (+1pt each), fastest.lap (+10pt), retirement (-20pt), ` +
+                  `The events.race feed emits: overtake (+1pt each), fastest.lap (+10pt), retirement (-20pt), ` +
                   `pit.entry and pit.exit (for fastest pit stop scoring), and session.start.\n\n` +
-                  `Use create_webhook with feedId "raceevent", webhookUrl "${webhookUrl}", ` +
+                  `Use create_webhook with feedId "events.race", webhookUrl "${webhookUrl}", ` +
                   `and filters ${JSON.stringify(driverList.length ? { drivers: driverList } : {})}. ` +
                   `Then test the endpoint and show me the HMAC secret. ` +
                   `After the race, use get_fantasy_scores with the raceId to see the final points breakdown.`,

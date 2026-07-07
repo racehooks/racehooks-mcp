@@ -7,7 +7,7 @@ export function registerFantasyTools(server: McpServer, rh: RaceHooks): void {
   server.tool(
     "get_fantasy_pit_times",
     "Get the pit lane time leaderboard for a session. Data is sourced from the live in-memory tracker during active sessions — returns empty for completed sessions. Requires Bearer authentication.",
-    { sessionId: z.string().min(1).describe("Session ID, e.g. '2026-bahrain-r1_Race'.") },
+    { sessionId: z.string().min(1).describe("Session ID, e.g. '2026-bahrain_r'.") },
     async ({ sessionId }) => {
       const result = await rh.fantasy.getSessionPitTimes(sessionId);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };

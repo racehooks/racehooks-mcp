@@ -19,13 +19,13 @@ Exposes your [RaceHooks](https://racehooks.io) account as a set of tools and res
 - `start_simulation` / `list_simulations` / `get_simulation` / `cancel_simulation`
 
 **Resources (read-only context):**
-- `racehooks://feeds` — full [feed catalog](https://docs.racehooks.io/feeds)
+- `racehooks://feeds` — full [feed catalog](https://racehooks.io/docs/feeds)
 - `racehooks://live` — current live session state
 - `racehooks://webhooks` — all webhook subscriptions
 - `racehooks://usage` — current delivery usage
 
 **Prompts (guided workflows):**
-- `setup_race_event_webhook` — create a raceevent subscription with filters
+- `setup_race_event_webhook` — create a events.race subscription with filters
 - `setup_fantasy_scoring_webhook` — create a fantasy-optimised subscription
 - `check_account_health` — full account health summary
 
@@ -135,7 +135,7 @@ Once configured, you can ask Claude things like:
 
 > "Check my RaceHooks account health"
 
-> "Create a raceevent webhook for https://myapp.com/hook, filtering for Ferrari only"
+> "Create a events.race webhook for https://myapp.com/hook, filtering for Ferrari only"
 
 > "Start a simulation of the 2025 Monaco GP qualifying against my webhooks at 10× speed"
 
@@ -151,10 +151,10 @@ All API calls are authenticated using OAuth 2 client credentials (token auto-ref
 
 ## Links
 
-- [RaceHooks console](https://racehooks.io) — sign up and manage your account
-- [RaceHooks API documentation](https://docs.racehooks.io)
-- [Webhook API reference](https://docs.racehooks.io/api)
-- [Feed catalog](https://docs.racehooks.io/feeds)
+- [RaceHooks console](https://racehooks.io/console) — sign up and manage your account
+- [RaceHooks API documentation](https://racehooks.io/docs)
+- [Webhook API reference](https://racehooks.io/docs/webhooks)
+- [Feed catalog](https://racehooks.io/docs/feeds)
 - [GitHub](https://github.com/racehooks/racehooks-mcp)
 - [npm](https://www.npmjs.com/package/racehooks-mcp)
 - [Smithery listing](https://smithery.ai/server/racehooks-mcp)

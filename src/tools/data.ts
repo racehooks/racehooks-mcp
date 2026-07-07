@@ -289,7 +289,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
   server.tool(
     "get_session_analytics",
     "Get per-lap ML analytics snapshot for a session (pit probability, SC probability, tyre health, LTOE, win probability). Requires Live tier.",
-    { sessionId: z.string().min(1).describe("Session ID, e.g. '2026-bahrain-r1_Race'.") },
+    { sessionId: z.string().min(1).describe("Session ID, e.g. '2026-bahrain_r'.") },
     async ({ sessionId }) => {
       const result = await rh.data.getSessionAnalytics(sessionId);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };

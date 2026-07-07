@@ -34,7 +34,7 @@ export function registerWebhookTools(server: McpServer, rh: RaceHooks): void {
     "create_webhook",
     "Register a new webhook subscription. Returns the webhook and the HMAC signing secret (shown once — store it immediately).",
     {
-      feedId:        z.string().min(1).describe("Feed ID from list_feeds. Use 'raceevent' for structured race events."),
+      feedId:        z.string().min(1).describe("Feed ID from list_feeds. Use 'events.race' for structured race events."),
       webhookUrl:    z.string().url().describe("Public HTTPS URL to deliver payloads to."),
       webhookMethod: z.enum(["post", "put"]).default("post").optional(),
       filters:       WebhookFiltersSchema,
