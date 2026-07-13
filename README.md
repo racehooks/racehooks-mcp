@@ -25,7 +25,7 @@ Exposes your [RaceHooks](https://racehooks.io) account as a set of tools and res
 - `racehooks://usage` — current delivery usage
 
 **Prompts (guided workflows):**
-- `setup_race_event_webhook` — create a events.race subscription with filters
+- `setup_race_event_webhook` — create an `events.race` subscription with filters
 - `setup_fantasy_scoring_webhook` — create a fantasy-optimised subscription
 - `check_account_health` — full account health summary
 
@@ -135,7 +135,7 @@ Once configured, you can ask Claude things like:
 
 > "Check my RaceHooks account health"
 
-> "Create a events.race webhook for https://myapp.com/hook, filtering for Ferrari only"
+> "Create an `events.race` webhook for https://myapp.com/hook, filtering for Ferrari only"
 
 > "Start a simulation of the 2025 Monaco GP qualifying against my webhooks at 10× speed"
 

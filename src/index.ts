@@ -145,7 +145,7 @@ async function main(): Promise<void> {
 
   server.prompt(
     "setup_race_event_webhook",
-    "Guided workflow: create a events.race webhook subscription with optional driver, constructor, or position filters.",
+    "Guided workflow: create an events.race webhook subscription with optional driver, constructor, or position filters.",
     {
       webhookUrl:   z.string().url().describe("Your public HTTPS endpoint URL."),
       drivers:      z.string().optional().describe("Comma-separated TLA codes to filter, e.g. 'VER,NOR'. Leave blank for all."),
@@ -172,7 +172,7 @@ async function main(): Promise<void> {
           role: "user",
           content: {
             type: "text",
-            text: `Please create a events.race webhook subscription for me.\n\n` +
+            text: `Please create an events.race webhook subscription for me.\n\n` +
                   `Endpoint URL: ${webhookUrl}${filterSummary}\n\n` +
                   `Use the create_webhook tool with feedId "events.race", webhookUrl "${webhookUrl}", ` +
                   `and filters ${JSON.stringify(filters)}. ` +
@@ -222,7 +222,7 @@ async function main(): Promise<void> {
           role: "user",
           content: {
             type: "text",
-            text: `Set up a events.race webhook for my F1 Fantasy scoring engine.\n\n` +
+            text: `Set up an events.race webhook for my F1 Fantasy scoring engine.\n\n` +
                   `Endpoint: ${webhookUrl}\n` +
                   `Driver filter: ${driverList.length ? driverList.join(", ") : "none"}\n\n` +
                   filterNote + "\n\n" +
