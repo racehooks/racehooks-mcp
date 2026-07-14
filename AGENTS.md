@@ -12,7 +12,7 @@ point them at the [`racehooks`](https://www.npmjs.com/package/racehooks) SDK.
 ## Install (end user)
 
 ```bash
-npx -y racehooks-mcp        # or: npm install -g racehooks-mcp
+npx -y @racehooks/mcp        # or: npm install -g @racehooks/mcp
 ```
 
 Requires two env vars (credentials from https://racehooks.io/console):
@@ -22,7 +22,7 @@ Claude Code config (`.claude/settings.json`):
 
 ```json
 { "mcpServers": { "racehooks": { "type": "stdio", "command": "npx",
-  "args": ["-y", "racehooks-mcp"],
+  "args": ["-y", "@racehooks/mcp"],
   "env": { "RACEHOOKS_CLIENT_ID": "…", "RACEHOOKS_CLIENT_SECRET": "…" } } } }
 ```
 

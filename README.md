@@ -1,8 +1,8 @@
-# racehooks-mcp
+# @racehooks/mcp
 
 MCP server for [RaceHooks](https://racehooks.io) — gives AI assistants (Claude, Cursor, Windsurf) direct access to RaceHooks motorsport analytics and data.
 
-[![npm](https://img.shields.io/npm/v/racehooks-mcp)](https://www.npmjs.com/package/racehooks-mcp)
+[![npm](https://img.shields.io/npm/v/@racehooks/mcp)](https://www.npmjs.com/package/@racehooks/mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 > RaceHooks is an independent service and is not affiliated with or endorsed by Formula One Management or the FIA. "Formula 1," "F1," and related marks are trademarks of Formula One Licensing BV.
@@ -32,13 +32,13 @@ Exposes your [RaceHooks](https://racehooks.io) account as a set of tools and res
 ## Installation
 
 ```bash
-npm install -g racehooks-mcp
+npm install -g @racehooks/mcp
 ```
 
 Or run directly with npx:
 
 ```bash
-npx racehooks-mcp
+npx @racehooks/mcp
 ```
 
 Get your API credentials at [racehooks.io](https://racehooks.io).
@@ -63,7 +63,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
   "mcpServers": {
     "racehooks": {
       "command": "npx",
-      "args": ["-y", "racehooks-mcp"],
+      "args": ["-y", "@racehooks/mcp"],
       "env": {
         "RACEHOOKS_CLIENT_ID": "your-client-id",
         "RACEHOOKS_CLIENT_SECRET": "your-client-secret"
@@ -100,7 +100,7 @@ Or with npx (no global install needed):
     "racehooks": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "racehooks-mcp"],
+      "args": ["-y", "@racehooks/mcp"],
       "env": {
         "RACEHOOKS_CLIENT_ID": "your-client-id",
         "RACEHOOKS_CLIENT_SECRET": "your-client-secret"
@@ -119,7 +119,7 @@ Add to your MCP config (`.cursor/mcp.json` or equivalent):
   "mcpServers": {
     "racehooks": {
       "command": "npx",
-      "args": ["-y", "racehooks-mcp"],
+      "args": ["-y", "@racehooks/mcp"],
       "env": {
         "RACEHOOKS_CLIENT_ID": "your-client-id",
         "RACEHOOKS_CLIENT_SECRET": "your-client-secret"
@@ -156,6 +156,6 @@ All API calls are authenticated using OAuth 2 client credentials (token auto-ref
 - [Webhook API reference](https://racehooks.io/docs/webhooks)
 - [Feed catalog](https://racehooks.io/docs/feeds)
 - [GitHub](https://github.com/racehooks/racehooks-mcp)
-- [npm](https://www.npmjs.com/package/racehooks-mcp)
+- [npm](https://www.npmjs.com/package/@racehooks/mcp)
 - [Smithery listing](https://smithery.ai/server/racehooks-mcp)
 - [MCP specification](https://modelcontextprotocol.io)

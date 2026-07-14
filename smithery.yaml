@@ -8,7 +8,7 @@ startCommand:
   command: npx
   args:
     - "-y"
-    - "racehooks-mcp"
+    - "@racehooks/mcp"
 config:
   RACEHOOKS_CLIENT_ID:
     description: Your RaceHooks client ID. Get yours at racehooks.io.
