@@ -1,22 +1,37 @@
-name: Publish to npm
+name: Release
 
-# Smithery auto-syncs the listing from this repo + npm once the repo is
-# connected on smithery.ai. Publishing to npm is the only required step.
+# Fully automated release on every push to main. semantic-release reads the
+# conventional-commit messages since the last release, decides the version bump
+# (fix: -> patch, feat: -> minor, feat!:/BREAKING CHANGE -> major), then:
+#   1. builds and publishes the npm package (with provenance),
+#   2. syncs + publishes server.json to the official MCP registry,
+#   3. commits the version bump back and creates the GitHub release + tag.
+# Smithery and the downstream aggregators index from the npm package + MCP
+# registry on their own schedule, so there is no separate push for them.
+# Commits with no releasable changes (docs:, chore:, ci:, ...) publish nothing.
 
 on:
   workflow_dispatch:
   push:
-    tags:
-      - "v*"
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      id-token: write # required for npm provenance
+      contents: write # semantic-release: commit version bump + create tag/release
+      issues: write # semantic-release/github: comment on released issues
+      pull-requests: write # semantic-release/github: comment on released PRs
+      id-token: write # npm provenance + MCP registry GitHub OIDC
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # semantic-release needs full history + tags
+          persist-credentials: true
 
       - uses: actions/setup-node@v4
         with:
@@ -27,21 +42,10 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
-      - run: npm run build
 
-      - run: npm publish --provenance --access public
+      - run: npx semantic-release
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      # Publish to the official MCP registry (registry.modelcontextprotocol.io).
-      # Ownership of the io.github.racehooks/* namespace is proven via GitHub OIDC
-      # (uses the id-token above); the npm package is validated via its `mcpName` field.
-      - name: Publish to MCP Registry
-        run: |
-          # Wait for the just-published npm version to propagate before validation.
-          sleep 20
-          url=$(curl -sSL https://api.github.com/repos/modelcontextprotocol/registry/releases/latest \
-            | grep -o '"browser_download_url": *"[^"]*linux_amd64.tar.gz"' | cut -d'"' -f4 | head -1)
-          curl -sSL "$url" | tar xz mcp-publisher
-          ./mcp-publisher login github-oidc
-          ./mcp-publisher publish
+          NPM_CONFIG_PROVENANCE: "true"

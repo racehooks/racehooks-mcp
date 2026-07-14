@@ -15,7 +15,11 @@ import { registerFantasyTools } from "./tools/fantasy.js";
 // Per MCP best practice: never write to stdout in a stdio server.
 // All diagnostic output must go to stderr.
 
-const VERSION = "0.3.0";
+// Injected from package.json at build time by tsup (see tsup.config.ts `define`).
+// The `typeof` guard keeps this safe under ts-jest, which does not apply the
+// define replacement, so the identifier is simply absent there.
+declare const __MCP_VERSION__: string | undefined;
+const VERSION = typeof __MCP_VERSION__ !== "undefined" ? __MCP_VERSION__ : "0.0.0-dev";
 
 async function main(): Promise<void> {
   const clientId     = process.env.RACEHOOKS_CLIENT_ID;
@@ -96,7 +100,7 @@ async function main(): Promise<void> {
   server.resource(
     "usage",
     "racehooks://usage",
-    { description: "Current delivery usage: total deliveries today, failure count, daily limit, and remaining capacity." },
+    { description: "Current delivery usage: total deliveries this month, failure count, monthly delivery bucket, and remaining capacity." },
     async () => {
       const result = await rh.usage.current();
       return {
@@ -195,7 +199,7 @@ async function main(): Promise<void> {
           type: "text",
           text: "Give me a health check on my RaceHooks account. " +
                 "Call get_subscription, get_usage_by_feed, list_webhooks, and get_live_session in parallel, " +
-                "then summarise: my current tier and limits, how much of my delivery budget I've used today (broken down by feed), " +
+                "then summarise: my current tier and limits, how much of my monthly delivery budget I've used (broken down by feed), " +
                 "how many webhooks are active vs paused, and whether there is a live F1 session right now.",
         },
       }],

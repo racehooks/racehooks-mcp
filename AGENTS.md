@@ -45,5 +45,16 @@ auto-refresh.
 
 Node/TS, built with tsup. `npm ci` → `npm run build` / `npm test`. Registry manifests are
 `server.json` (official MCP registry, `io.github.racehooks/racehooks-mcp`) and `smithery.yaml`
-(Smithery). Publishing to npm is tag-gated; a plain push to `main` does not publish.
+(Smithery).
+
+**Releasing is fully automated — do not bump versions or publish by hand.** Every push to
+`main` runs semantic-release (`.github/workflows/publish.yml`), which reads the
+conventional-commit messages, decides the bump, and publishes to npm + the official MCP
+registry; Smithery and the other aggregators index from there. The version lives in exactly one
+place — `package.json` — and is injected into the build (`__MCP_VERSION__`) and propagated to
+`server.json` at release time by `scripts/sync-version.mjs`. Never edit `VERSION` in `src` or
+the `version` fields in `server.json` directly. Just write commit messages in the convention:
+`fix:` → patch, `feat:` → minor, `feat!:`/`BREAKING CHANGE:` → major; `docs:`/`chore:`/`ci:`
+release nothing.
+
 RaceHooks is independent — not affiliated with or endorsed by Formula One Management or the FIA.
