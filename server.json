@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.racehooks/racehooks-mcp",
   "title": "RaceHooks",
-  "description": "F1 race analytics & live timing for AI assistants \u2014 webhooks, results, and race simulations.",
-  "version": "0.3.0",
+  "description": "F1 race analytics & live timing for AI assistants — webhooks, results, and race simulations.",
+  "version": "0.3.1",
   "websiteUrl": "https://racehooks.io",
   "repository": {
     "url": "https://github.com/racehooks/racehooks-mcp",
@@ -14,7 +14,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "racehooks-mcp",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "transport": {
         "type": "stdio"
       },
