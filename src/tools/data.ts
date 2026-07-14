@@ -34,7 +34,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_driver_results",
-    "Get race-by-race results for a driver. Timing fields (gap, finish time) are only returned for Live and Analytics tier accounts.",
+    "Get race-by-race results for a driver. Timing fields (gap, finish time) are only returned for Developer and Custom accounts.",
     {
       driverId: z.string().min(1),
       season:   z.number().int().optional().describe("Filter to a specific season year, e.g. 2026."),
@@ -177,7 +177,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_race",
-    "Get race details with full results and qualifying grid. Timing fields require Live or Analytics tier. No authentication required for basic data.",
+    "Get race details with full results and qualifying grid. Timing fields require Developer or Custom. No authentication required for basic data.",
     { raceId: z.string().min(1).describe("Race ID slug, e.g. '2026-bahrain-r1'.") },
     async ({ raceId }) => {
       const result = await rh.data.getRace(raceId);
@@ -227,7 +227,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_race_laps",
-    "Get per-lap times and positions for a race. Requires Live or Analytics tier. " +
+    "Get per-lap times and positions for a race. Requires Developer or Custom. " +
     "Optionally filter to a single driver with driverId.",
     {
       raceId:   z.string().min(1),
@@ -251,7 +251,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_race_telemetry_laps",
-    "Get per-lap telemetry metrics (speed, throttle, brake, DRS, aggression) from telemetry data. Requires Live tier. " +
+    "Get per-lap telemetry metrics (speed, throttle, brake, DRS, aggression) from telemetry data. Requires Developer. " +
     "Optional driverId to filter to one driver.",
     {
       raceId:   z.string().min(1),
@@ -265,7 +265,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_race_telemetry_stints",
-    "Get per-stint telemetry metrics and degradation slopes. Requires Analytics tier.",
+    "Get per-stint telemetry metrics and degradation slopes. Requires Custom.",
     {
       raceId:   z.string().min(1),
       driverId: z.string().optional(),
@@ -278,7 +278,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_race_telemetry_aggression",
-    "Get driver aggression index rankings for a race. Requires Analytics tier.",
+    "Get driver aggression index rankings for a race. Requires Custom.",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.data.getRaceTelemetryAggression(raceId);
@@ -288,7 +288,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_session_analytics",
-    "Get per-lap ML analytics snapshot for a session (pit probability, SC probability, tyre health, LTOE, win probability). Requires Live tier.",
+    "Get per-lap ML analytics snapshot for a session (pit probability, SC probability, tyre health, LTOE, win probability). Requires Custom.",
     { sessionId: z.string().min(1).describe("Session ID, e.g. '2026-bahrain_r'.") },
     async ({ sessionId }) => {
       const result = await rh.data.getSessionAnalytics(sessionId);
@@ -298,7 +298,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_event_pace",
-    "Get practice and qualifying pace summary per driver for an event. Requires Live tier.",
+    "Get practice and qualifying pace summary per driver for an event. Requires Developer.",
     { eventId: z.string().min(1).describe("Event ID from list_events.") },
     async ({ eventId }) => {
       const result = await rh.data.getEventPace(eventId);

@@ -15,7 +15,7 @@ export function registerUsageTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_usage",
-    "Get delivery usage summary for the current period: total deliveries, failures, tier, and remaining daily limit.",
+    "Get delivery usage summary for the current period: total deliveries, failures, tier, and remaining monthly delivery bucket.",
     {},
     async () => {
       const result = await rh.usage.current();

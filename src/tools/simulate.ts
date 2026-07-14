@@ -6,8 +6,9 @@ export function registerSimulateTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "start_simulation",
-    "Replay a historical F1 session against your registered webhooks. " +
-    "Historical session data is delivered to your active webhook endpoints at the chosen speed. " +
+    "Replay a recorded F1 session against your registered webhooks. " +
+    "Session data is delivered to your active webhook endpoints at the chosen speed. " +
+    "Self-serve tiers cover the current season (the full historical archive is on Custom); delivering a session you have not replayed before consumes one of your unique-session simulate slots (Free 5, Developer 10). " +
     "Use this to develop and test your integration without waiting for a live race.",
     {
       sessionId: z.string().min(1).describe("Session ID from list_events (e.g. a qualifying or race session ID)."),
