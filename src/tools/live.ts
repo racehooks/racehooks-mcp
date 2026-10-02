@@ -6,7 +6,7 @@ export function registerLiveTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_live_session",
-    "Get the current live F1 session state: flag status, lap number, driver positions, intervals, tyre compounds, and recent race control messages. Returns an empty/inactive context when no session is live.",
+    "Get the current live F1 session state: flag status, lap number, driver positions, intervals, tyre compounds, and recent race control messages. Returns an empty/inactive context when no session is live. Live per-driver timing requires Developer or higher; Free receives the latest milestone classification (end of a qualifying segment or the final result) instead.",
     {},
     async () => {
       const result = await rh.live.context();

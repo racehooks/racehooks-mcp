@@ -18,22 +18,23 @@ npx -y @racehooks/mcp        # or: npm install -g @racehooks/mcp
 Requires two env vars (credentials from https://racehooks.io/console):
 `RACEHOOKS_CLIENT_ID`, `RACEHOOKS_CLIENT_SECRET`. Optional `RACEHOOKS_BASE_URL`.
 
-Claude Code config (`.claude/settings.json`):
+Claude Code (Claude Code does not read MCP servers from `.claude/settings.json`):
 
-```json
-{ "mcpServers": { "racehooks": { "type": "stdio", "command": "npx",
-  "args": ["-y", "@racehooks/mcp"],
-  "env": { "RACEHOOKS_CLIENT_ID": "…", "RACEHOOKS_CLIENT_SECRET": "…" } } } }
+```bash
+claude mcp add racehooks -e RACEHOOKS_CLIENT_ID=… -e RACEHOOKS_CLIENT_SECRET=… -- npx -y @racehooks/mcp
 ```
 
 ## What it exposes
 
-- **Tools:** `list_feeds`, `list_webhooks`, `get_webhook`, `create_webhook`, `delete_webhook`,
-  `test_webhook`, `get_webhook_logs`, `get_live_session`, `list_events`, `get_subscription`,
-  `get_usage`, `get_usage_by_feed`, `get_billing_plan`, `start_simulation`,
-  `list_simulations`, `get_simulation`, `cancel_simulation`.
-- **Resources:** `racehooks://feeds`, `racehooks://live`, `racehooks://webhooks`, `racehooks://usage`.
-- **Prompts:** `setup_race_event_webhook`, `setup_fantasy_scoring_webhook`, `check_account_health`.
+- **Tools (59):** live session + events, post-race insights, races, history (drivers /
+  constructors / circuits / seasons), telemetry, fantasy, and account / usage / webhooks — see the
+  README for the full table and the plan each tool needs. The six simulation tools
+  (`start_simulation` … `cancel_simulation`) call a retired endpoint and currently return 404;
+  `get_billing_plan` currently returns 401 with API credentials.
+- **Resources (7):** `racehooks://feeds`, `racehooks://live`, `racehooks://webhooks`,
+  `racehooks://usage`, `racehooks://drivers`, `racehooks://circuits`, `racehooks://seasons`.
+- **Prompts (6):** `setup_race_event_webhook`, `setup_fantasy_scoring_webhook`,
+  `check_account_health`, `analyze_race_strategy`, `compare_drivers`, `explain_ml_predictions`.
 
 ## Security model
 

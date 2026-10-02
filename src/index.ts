@@ -319,7 +319,7 @@ async function main(): Promise<void> {
                 "Then explain:\n" +
                 "1. For each ML model (pit stop, safety car, tyre health, win probability): what did it predict, and what actually happened?\n" +
                 "2. Where were the predictions most accurate, and where did they miss?\n" +
-                "3. What were the model's current training metrics (PR-AUC, Brier score) and what do they mean?\n" +
+                "3. What calibration tier does each model currently report, and what does that mean for how far to trust it?\n" +
                 "4. Were there any key moments where a driver ignored a high pit probability signal, and did it cost them?",
         },
       }],

@@ -25,7 +25,7 @@ export function registerUsageTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_usage_by_feed",
-    "Get webhook delivery counts broken down by feed for today. Useful for identifying which feeds are driving delivery volume.",
+    "Get webhook delivery counts broken down by feed for the current period. Useful for identifying which feeds are driving delivery volume.",
     {},
     async () => {
       const result = await rh.usage.byFeed();
@@ -45,7 +45,7 @@ export function registerUsageTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_usage_hourly",
-    "Get webhook delivery volume broken down by hour for the current period. Useful for identifying traffic spikes.",
+    "Get webhook delivery volume broken down by hour for the last 24 hours. Useful for identifying traffic spikes.",
     {},
     async () => {
       const result = await rh.usage.hourly();
@@ -65,7 +65,8 @@ export function registerUsageTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_billing_plan",
-    "Get the detailed billing plan including tier, subscription period end date, limits, and current usage. Use this to check whether Analytics enrichment is active.",
+    "Get the detailed billing plan including tier, subscription period end date, limits, and current usage. " +
+    "Note: the billing-plan endpoint currently accepts console sessions only, so this tool returns 401 with API credentials — use get_subscription for tier, limits, and analytics enrichment.",
     {},
     async () => {
       const result = await rh.usage.billingPlan();
