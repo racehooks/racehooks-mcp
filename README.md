@@ -12,8 +12,6 @@ MCP server for [RaceHooks](https://racehooks.io) — gives AI assistants (Claude
 Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **59 tools**, **7 resources**, and **6 guided prompts**. Every call is made with your account's credentials, so what a tool returns depends on your plan (Free, Developer, or Custom). The data tools cover Formula 1.
 
 > **Simulation tools are being updated.** The six session-replay tools in this release (`start_simulation`, `list_simulations`, `get_simulation`, `pause_simulation`, `resume_simulation`, `cancel_simulation`) call an API endpoint that has been retired, so they currently return 404. Replacement tools are in progress; until they ship, use the console to replay sessions.
->
-> `get_billing_plan` currently returns 401 with API credentials (its endpoint accepts console sessions only). Use `get_subscription` for tier, limits, and analytics enrichment.
 
 ### Tools
 
@@ -103,7 +101,7 @@ Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **5
 | `get_usage_latency` | Delivery latency percentiles by feed. | — | All |
 | `get_usage_hourly` | Hourly deliveries for the last 24 hours. | — | All |
 | `get_usage_history` | Delivery history across past periods. | — | All |
-| `get_billing_plan` | Billing plan detail. **Currently returns 401 with API credentials** (see note above). | — | — |
+| `get_billing_plan` | Current plan, limits, usage this period, and billing period dates. | — | All |
 
 **Simulation (currently unavailable — see note above):** `start_simulation`, `list_simulations`, `get_simulation`, `pause_simulation`, `resume_simulation`, `cancel_simulation`.
 
