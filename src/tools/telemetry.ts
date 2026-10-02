@@ -7,7 +7,7 @@ export function registerTelemetryTools(server: McpServer, rh: RaceHooks): void {
   server.tool(
     "get_telemetry_laps",
     "Get per-lap telemetry aggregates (avg/max speed, throttle, brake, DRS, aggression index). " +
-    "Returns all drivers by default. Filter with driverId or lapNumber. Requires Bearer authentication.",
+    "Returns all drivers by default. Filter with driverId or lapNumber. Requires Developer or higher.",
     {
       raceId:    z.string().min(1).describe("Race ID slug, e.g. '2026-bahrain-r1'."),
       driverId:  z.string().optional().describe("Filter to a specific driver."),
@@ -21,7 +21,7 @@ export function registerTelemetryTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_telemetry_driver_laps",
-    "Get per-lap telemetry for a single driver across all laps of a race. Requires Bearer authentication.",
+    "Get per-lap telemetry for a single driver across all laps of a race. Requires Developer or higher.",
     {
       raceId:   z.string().min(1),
       driverId: z.string().min(1),
@@ -34,7 +34,7 @@ export function registerTelemetryTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_telemetry_lap_comparison",
-    "Get all drivers' telemetry for a single lap — useful for side-by-side lap comparisons. Requires Bearer authentication.",
+    "Get all drivers' telemetry for a single lap — useful for side-by-side lap comparisons. Requires Developer or higher.",
     {
       raceId:    z.string().min(1),
       lapNumber: z.number().int().min(1),
@@ -47,7 +47,7 @@ export function registerTelemetryTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_telemetry_race_summary",
-    "Get race-level telemetry summary: max speed, fastest driver, average throttle/brake percentages, top aggression driver. Requires Bearer authentication.",
+    "Get race-level telemetry summary: max speed, fastest driver, average throttle/brake percentages, top aggression driver. Requires Developer or higher.",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.telemetry.getRaceSummary(raceId);
