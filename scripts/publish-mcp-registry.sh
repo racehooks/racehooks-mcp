@@ -9,9 +9,22 @@
 # on their own schedule — there is no separate push for them.
 set -euo pipefail
 
-# Give npm a moment to propagate the freshly published version before the registry
-# fetches and validates it.
-sleep 20
+# The registry validates against the live npm package, and a fresh version can take
+# minutes to appear there (a fixed 20 s sleep lost the race on 0.3.2). Poll npm until
+# this exact version resolves, up to 5 minutes.
+version=$(node -p "require('./package.json').version")
+name=$(node -p "require('./package.json').name")
+for i in $(seq 1 30); do
+  if npm view "${name}@${version}" version >/dev/null 2>&1; then
+    echo "[mcp-registry] ${name}@${version} is live on npm" >&2
+    break
+  fi
+  if [ "$i" -eq 30 ]; then
+    echo "[mcp-registry] ${name}@${version} not visible on npm after 5 minutes" >&2
+    exit 1
+  fi
+  sleep 10
+done
 
 echo "[mcp-registry] fetching latest mcp-publisher release" >&2
 url=$(curl -sSL https://api.github.com/repos/modelcontextprotocol/registry/releases/latest \
@@ -24,7 +37,13 @@ curl -sSL "$url" | tar xz mcp-publisher
 
 echo "[mcp-registry] logging in via GitHub OIDC and publishing" >&2
 ./mcp-publisher login github-oidc
-./mcp-publisher publish
+# npm's view and the registry's fetch can hit different CDN edges, so retry briefly.
+for i in 1 2 3 4 5; do
+  if ./mcp-publisher publish; then break; fi
+  if [ "$i" -eq 5 ]; then exit 1; fi
+  echo "[mcp-registry] publish attempt $i failed; retrying in 30s" >&2
+  sleep 30
+done
 
 rm -f mcp-publisher
 echo "[mcp-registry] done" >&2
