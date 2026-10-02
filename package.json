@@ -1,6 +1,6 @@
 {
   "name": "@racehooks/mcp",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "MCP server for RaceHooks — motorsport analytics and data delivery for Claude, Cursor, and Windsurf",
   "mcpName": "io.github.racehooks/racehooks-mcp",
   "type": "module",
