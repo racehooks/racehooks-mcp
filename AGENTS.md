@@ -29,8 +29,7 @@ claude mcp add racehooks -e RACEHOOKS_CLIENT_ID=… -e RACEHOOKS_CLIENT_SECRET=�
 - **Tools (59):** live session + events, post-race insights, races, history (drivers /
   constructors / circuits / seasons), telemetry, fantasy, and account / usage / webhooks — see the
   README for the full table and the plan each tool needs. The six simulation tools
-  (`start_simulation` … `cancel_simulation`) call a retired endpoint and currently return 404;
-  `get_billing_plan` currently returns 401 with API credentials.
+  (`start_simulation` … `cancel_simulation`) call a retired endpoint and currently return 404.
 - **Resources (7):** `racehooks://feeds`, `racehooks://live`, `racehooks://webhooks`,
   `racehooks://usage`, `racehooks://drivers`, `racehooks://circuits`, `racehooks://seasons`.
 - **Prompts (6):** `setup_race_event_webhook`, `setup_fantasy_scoring_webhook`,

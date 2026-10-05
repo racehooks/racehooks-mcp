@@ -65,8 +65,7 @@ export function registerUsageTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_billing_plan",
-    "Get the detailed billing plan including tier, subscription period end date, limits, and current usage. " +
-    "Note: the billing-plan endpoint currently accepts console sessions only, so this tool returns 401 with API credentials — use get_subscription for tier, limits, and analytics enrichment.",
+    "Get the detailed billing plan including tier, subscription period end date, limits, and current usage.",
     {},
     async () => {
       const result = await rh.usage.billingPlan();
