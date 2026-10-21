@@ -2,73 +2,66 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { RaceHooks } from "racehooks";
 
+// The racehooks SDK has no methods for the /v1/simulate replay endpoints yet, so these
+// tools make authenticated calls through the SDK's own HTTP client (OAuth refresh included).
+interface Http {
+  get<T>(path: string): Promise<T>;
+  post<T>(path: string, body?: unknown): Promise<T>;
+}
+const httpOf = (rh: RaceHooks): Http => (rh as unknown as { http: Http }).http;
+const json = (result: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }] });
+
 export function registerSimulateTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
-    "start_simulation",
-    "Replay a recorded F1 session against your registered webhooks. " +
-    "Session data is delivered to your active webhook endpoints at the chosen speed. " +
-    "Self-serve tiers cover the current season (the full historical archive is on Custom); delivering a session you have not replayed before consumes one of your unique-session simulate slots (Free 5, Developer 10). " +
-    "Use this to develop and test your integration without waiting for a live race.",
+    "list_replay_sessions",
+    "List recorded F1 sessions that have archived data and can be replayed. Only completed sessions with archive paths are returned. " +
+    "Self-serve tiers (Free and Developer) list the current season only, plus the curated demo session; the full historical archive is on Custom. " +
+    "`restrictedToSeason` in the response reports the applied limit.",
     {
-      sessionId: z.string().min(1).describe("Session ID from list_events (e.g. a qualifying or race session ID)."),
-      speed:     z.union([z.number().int().min(1).max(100), z.literal("instant")]).default(1).optional()
-                   .describe("Playback speed multiplier (1 = real-time, 10 = 10× speed, 'instant' = as fast as possible)."),
-      feeds:     z.array(z.string()).optional().describe("Limit playback to specific feed IDs. Omit to replay all subscribed feeds."),
+      year:   z.string().regex(/^\d{4}$/).optional().describe("Calendar year, e.g. '2026'."),
+      type:   z.enum(["race", "qualifying", "sprint", "practice"]).optional().describe("Session type."),
+      limit:  z.number().int().min(1).max(500).optional().describe("Max results (default 200)."),
+      offset: z.number().int().min(0).optional().describe("Results to skip (default 0)."),
     },
-    async ({ sessionId, speed = 1, feeds }) => {
-      const result = await rh.simulate.start({ sessionId, speed, feeds });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    async ({ year, type, limit, offset }) => {
+      const qs = new URLSearchParams();
+      if (year !== undefined) qs.set("year", year);
+      if (type !== undefined) qs.set("type", type);
+      if (limit !== undefined) qs.set("limit", String(limit));
+      if (offset !== undefined) qs.set("offset", String(offset));
+      const q = qs.toString();
+      return json(await httpOf(rh).get(`/v1/simulate/sessions${q ? `?${q}` : ""}`));
     }
   );
 
   server.tool(
-    "list_simulations",
-    "List all simulations (running and completed) for this account.",
+    "get_demo_session",
+    "Get the curated demo session to replay (the canonical ID of a guaranteed-real event).",
     {},
-    async () => {
-      const result = await rh.simulate.list();
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
+    async () => json(await httpOf(rh).get("/v1/simulate/demo"))
   );
 
   server.tool(
-    "get_simulation",
-    "Get the status and log of a specific simulation, including events dispatched, deliveries made, and error count.",
-    { simulationId: z.string().min(1) },
-    async ({ simulationId }) => {
-      const result = await rh.simulate.get(simulationId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
+    "get_replay_quota",
+    "Get the replay delivery quota for this account: distinct-session lifetime slots for your tier.",
+    {},
+    async () => json(await httpOf(rh).get("/v1/simulate/quota"))
   );
 
   server.tool(
-    "pause_simulation",
-    "Pause a running simulation. Resume it with resume_simulation.",
-    { simulationId: z.string().min(1) },
-    async ({ simulationId }) => {
-      const result = await rh.simulate.pause(simulationId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
+    "prepare_replay",
+    "Prepare a session for recorded playback, generating its playback artifact if not already cached. " +
+    "Check readiness with get_replay_status.",
+    { sessionId: z.string().min(1).describe("Session ID from list_replay_sessions or get_demo_session.") },
+    async ({ sessionId }) => json(await httpOf(rh).post("/v1/simulate/prepare", { sessionId }))
   );
 
   server.tool(
-    "resume_simulation",
-    "Resume a paused simulation.",
-    { simulationId: z.string().min(1) },
-    async ({ simulationId }) => {
-      const result = await rh.simulate.resume(simulationId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
-  );
-
-  server.tool(
-    "cancel_simulation",
-    "Cancel a running or paused simulation.",
-    { simulationId: z.string().min(1) },
-    async ({ simulationId }) => {
-      await rh.simulate.cancel(simulationId);
-      return { content: [{ type: "text", text: `Simulation ${simulationId} cancelled.` }] };
-    }
+    "get_replay_status",
+    "Check whether a session's playback artifact is ready to stream.",
+    { sessionId: z.string().min(1).describe("Session ID from list_replay_sessions or get_demo_session.") },
+    async ({ sessionId }) =>
+      json(await httpOf(rh).get(`/v1/simulate/status?session=${encodeURIComponent(sessionId)}`))
   );
 }

@@ -9,9 +9,7 @@ MCP server for [RaceHooks](https://racehooks.io) — gives AI assistants (Claude
 
 ## What this does
 
-Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **59 tools**, **7 resources**, and **6 guided prompts**. Every call is made with your account's credentials, so what a tool returns depends on your plan (Free, Developer, or Custom). The data tools cover Formula 1.
-
-> **Simulation tools are being updated.** The six session-replay tools in this release (`start_simulation`, `list_simulations`, `get_simulation`, `pause_simulation`, `resume_simulation`, `cancel_simulation`) call an API endpoint that has been retired, so they currently return 404. Replacement tools are in progress; until they ship, use the console to replay sessions.
+Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **58 tools**, **7 resources**, and **6 guided prompts**. Every call is made with your account's credentials, so what a tool returns depends on your plan (Free, Developer, or Custom). The data tools cover Formula 1.
 
 ### Tools
 
@@ -103,7 +101,15 @@ Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **5
 | `get_usage_history` | Delivery history across past periods. | — | All |
 | `get_billing_plan` | Current plan, limits, usage this period, and billing period dates. | — | All |
 
-**Simulation (currently unavailable — see note above):** `start_simulation`, `list_simulations`, `get_simulation`, `pause_simulation`, `resume_simulation`, `cancel_simulation`.
+**Session replay**
+
+| Tool | What it does | Key args | Plan |
+|---|---|---|---|
+| `list_replay_sessions` | Recorded sessions that can be replayed. | `year`, `type`, `limit`, `offset` | All (Free and Developer: current season only) |
+| `get_demo_session` | The curated demo session to replay. | — | All |
+| `get_replay_quota` | Replay delivery quota (distinct-session slots) for your tier. | — | All |
+| `prepare_replay` | Prepare a session's playback artifact. | `sessionId` | All |
+| `get_replay_status` | Whether a session's playback artifact is ready. | `sessionId` | All |
 
 ### Resources (read-only context)
 

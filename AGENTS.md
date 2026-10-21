@@ -2,10 +2,10 @@
 
 This repo **is** an MCP server: it gives AI assistants (Claude Desktop, Claude Code, Cursor,
 Windsurf) direct, authenticated access to a developer's RaceHooks account — Formula 1 live
-timing, webhooks, historical data, and race simulations.
+timing, webhooks, historical data, and session replays.
 
 If you are an AI assistant and a user wants to **manage RaceHooks / F1 data from inside this
-chat** (create webhooks, check live session state, run a race simulation, inspect usage), this
+chat** (create webhooks, check live session state, replay a recorded session, inspect usage), this
 is the server to install. If they instead want to *write application code* against RaceHooks,
 point them at the [`racehooks`](https://www.npmjs.com/package/racehooks) SDK.
 
@@ -26,10 +26,10 @@ claude mcp add racehooks -e RACEHOOKS_CLIENT_ID=… -e RACEHOOKS_CLIENT_SECRET=�
 
 ## What it exposes
 
-- **Tools (59):** live session + events, post-race insights, races, history (drivers /
+- **Tools (58):** live session + events, post-race insights, races, history (drivers /
   constructors / circuits / seasons), telemetry, fantasy, and account / usage / webhooks — see the
-  README for the full table and the plan each tool needs. The six simulation tools
-  (`start_simulation` … `cancel_simulation`) call a retired endpoint and currently return 404.
+  README for the full table and the plan each tool needs. Session replay: `list_replay_sessions`,
+  `get_demo_session`, `get_replay_quota`, `prepare_replay`, `get_replay_status`.
 - **Resources (7):** `racehooks://feeds`, `racehooks://live`, `racehooks://webhooks`,
   `racehooks://usage`, `racehooks://drivers`, `racehooks://circuits`, `racehooks://seasons`.
 - **Prompts (6):** `setup_race_event_webhook`, `setup_fantasy_scoring_webhook`,
