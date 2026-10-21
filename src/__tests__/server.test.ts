@@ -54,6 +54,11 @@ describe("MCP tool wiring", () => {
     expect(registered).toContain("list_feeds");
     // The full SDK-backed surface registers a substantial tool set.
     expect(registered.length).toBeGreaterThanOrEqual(17);
+    // Replay tools replace the retired simulation tools.
+    for (const name of ["list_replay_sessions", "get_demo_session", "get_replay_quota", "prepare_replay", "get_replay_status"]) {
+      expect(registered).toContain(name);
+    }
+    expect(registered.filter((n) => n.endsWith("_simulation") || n.endsWith("_simulations"))).toEqual([]);
     // No two tools share a name.
     expect(new Set(registered).size).toBe(registered.length);
   });
