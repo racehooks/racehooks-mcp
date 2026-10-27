@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "racehooks": {
+      "command": "npx",
+      "args": ["-y", "@racehooks/mcp"],
+      "env": {
+        "RACEHOOKS_CLIENT_ID": "${RACEHOOKS_CLIENT_ID}",
+        "RACEHOOKS_CLIENT_SECRET": "${RACEHOOKS_CLIENT_SECRET}"
+      }
+    }
+  }
+}
