@@ -221,6 +221,26 @@ Add to your MCP config (`.cursor/mcp.json` or equivalent):
 }
 ```
 
+## Cline
+
+In Cline, open **MCP Servers → Installed → Configure MCP Servers** and add to `cline_mcp_settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "racehooks": {
+      "command": "npx",
+      "args": ["-y", "@racehooks/mcp"],
+      "env": {
+        "RACEHOOKS_CLIENT_ID": "your-client-id",
+        "RACEHOOKS_CLIENT_SECRET": "your-client-secret"
+      },
+      "disabled": false
+    }
+  }
+}
+```
+
 ## Example usage with Claude
 
 Once configured, you can ask Claude things like:
