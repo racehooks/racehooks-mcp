@@ -2,7 +2,7 @@
   "name": "racehooks",
   "displayName": "RaceHooks",
   "description": "Predictive models and analytics for motorsport — race intelligence delivered to your endpoint.",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "author": {
     "name": "RaceHooks",
     "email": "contact@racehooks.io"
