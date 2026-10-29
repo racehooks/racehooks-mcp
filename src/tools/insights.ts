@@ -6,7 +6,7 @@ export function registerInsightTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "list_insight_races",
-    "List F1 races that have a completed post-race analytics pipeline — i.e. races where get_race_insights will return data. Available on every plan.",
+    "List races that have a completed post-race analytics pipeline — i.e. races where get_race_insights will return data. Available on every plan.",
     {
       season: z.number().int().optional().describe("Filter to a specific season year."),
     },

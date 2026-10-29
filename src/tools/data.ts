@@ -8,7 +8,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "list_drivers",
-    "List F1 drivers. Available on every plan; page size is capped at 25 on Free and 100 on paid plans.",
+    "List drivers. Available on every plan; page size is capped at 25 on Free and 100 on paid plans.",
     {
       limit:       z.number().int().min(1).max(100).default(20).optional(),
       offset:      z.number().int().min(0).default(0).optional(),
@@ -64,7 +64,7 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "list_constructors",
-    "List F1 constructors. Available on every plan.",
+    "List constructors. Available on every plan.",
     {
       limit:   z.number().int().min(1).max(100).default(20).optional(),
       offset:  z.number().int().min(0).default(0).optional(),

@@ -6,7 +6,7 @@ export function registerLiveTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "get_live_session",
-    "Get the current live F1 session state: flag status, lap number, driver positions, intervals, tyre compounds, and recent race control messages. Returns an empty/inactive context when no session is live. Live per-driver timing requires Developer or higher; Free receives the latest milestone classification (end of a qualifying segment or the final result) instead.",
+    "Get the current live session state: flag status, lap number, driver positions, intervals, tyre compounds, and recent race control messages. Returns an empty/inactive context when no session is live. Live per-driver timing requires Developer or higher; Free receives the latest milestone classification (end of a qualifying segment or the final result) instead.",
     {},
     async () => {
       const result = await rh.live.context();
@@ -16,7 +16,7 @@ export function registerLiveTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "list_events",
-    "List F1 events (race weekends) for the current or a specific season, including session schedules and status.",
+    "List events (race weekends) for the current or a specific season, including session schedules and status.",
     {
       limit:    z.number().int().min(1).max(50).default(30).optional(),
       year:     z.number().int().optional().describe("Season year, e.g. 2026. Defaults to current season."),
