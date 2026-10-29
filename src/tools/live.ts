@@ -1,20 +1,21 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { RaceHooks } from "racehooks";
+import { tool } from "../helpers.js";
 
 export function registerLiveTools(server: McpServer, rh: RaceHooks): void {
 
-  server.tool(
+  tool(server,
     "get_live_session",
     "Get the current live session state: flag status, lap number, driver positions, intervals, tyre compounds, and recent race control messages. Returns an empty/inactive context when no session is live. Live per-driver timing requires Developer or higher; Free receives the latest milestone classification (end of a qualifying segment or the final result) instead.",
     {},
     async () => {
       const result = await rh.live.context();
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "list_events",
     "List events (race weekends) for the current or a specific season, including session schedules and status.",
     {
@@ -24,7 +25,7 @@ export function registerLiveTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ limit = 30, year, upcoming }) => {
       const result = await rh.events.list({ limit, year, upcoming });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 }

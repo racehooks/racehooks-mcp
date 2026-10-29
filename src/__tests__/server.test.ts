@@ -26,10 +26,10 @@ describe("MCP tool wiring", () => {
     );
 
     const registered: string[] = [];
-    const origTool = server.tool.bind(server) as (...a: unknown[]) => unknown;
+    const origTool = server.registerTool.bind(server) as (...a: unknown[]) => unknown;
     // Record each registered tool name, then delegate to the real implementation
     // so duplicate-name registration still throws (a real wiring bug).
-    (server as unknown as { tool: (...a: unknown[]) => unknown }).tool = (
+    (server as unknown as { registerTool: (...a: unknown[]) => unknown }).registerTool = (
       ...args: unknown[]
     ) => {
       registered.push(args[0] as string);

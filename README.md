@@ -144,6 +144,8 @@ npx @racehooks/mcp
 
 Get your API credentials at [racehooks.io](https://racehooks.io).
 
+Use of RaceHooks through this MCP server is subject to the [RaceHooks Terms of Service](https://racehooks.io/legal/terms) and [Privacy Policy](https://racehooks.io/legal/privacy). Model outputs are probabilistic estimates, not statements of fact.
+
 ## Configuration
 
 Two environment variables are required; the server exits on start-up without them:
@@ -271,3 +273,5 @@ All API calls are authenticated using OAuth 2 client credentials (token auto-ref
 - [npm](https://www.npmjs.com/package/@racehooks/mcp)
 - [Smithery listing](https://smithery.ai/server/racehooks-mcp)
 - [MCP specification](https://modelcontextprotocol.io)
+- [Terms of Service](https://racehooks.io/legal/terms)
+- [Privacy Policy](https://racehooks.io/legal/privacy)

@@ -1,12 +1,13 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { RaceHooks } from "racehooks";
+import { tool } from "../helpers.js";
 
 export function registerDataTools(server: McpServer, rh: RaceHooks): void {
 
   // ── Drivers ────────────────────────────────────────────────────────────────
 
-  server.tool(
+  tool(server,
     "list_drivers",
     "List drivers. Available on every plan; page size is capped at 25 on Free and 100 on paid plans.",
     {
@@ -18,21 +19,21 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async (opts) => {
       const result = await rh.data.listDrivers(opts);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_driver",
     "Get a driver profile with career statistics (wins, podiums, poles, championships). Available on every plan.",
     { driverId: z.string().min(1).describe("Driver slug, e.g. 'max_verstappen'.") },
     async ({ driverId }) => {
       const result = await rh.data.getDriver(driverId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_driver_results",
     "Get race-by-race results for a driver. Available on every plan; timing fields (gap, finish time) are only returned on Developer and above.",
     {
@@ -43,11 +44,11 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ driverId, ...opts }) => {
       const result = await rh.data.getDriverResults(driverId, opts);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_driver_standings",
     "Get championship standings history for a driver across seasons. Available on every plan.",
     {
@@ -56,13 +57,13 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ driverId, season }) => {
       const result = await rh.data.getDriverStandings(driverId, { season });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
   // ── Constructors ───────────────────────────────────────────────────────────
 
-  server.tool(
+  tool(server,
     "list_constructors",
     "List constructors. Available on every plan.",
     {
@@ -73,21 +74,21 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async (opts) => {
       const result = await rh.data.listConstructors(opts);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_constructor",
     "Get a constructor profile including its lineage history (predecessor and successor teams). Available on every plan.",
     { constructorId: z.string().min(1).describe("Constructor slug, e.g. 'red_bull'.") },
     async ({ constructorId }) => {
       const result = await rh.data.getConstructor(constructorId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_constructor_results",
     "Get race-by-race results for a constructor. Available on every plan; timing fields (gap, finish time) are only returned on Developer and above.",
     {
@@ -98,11 +99,11 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ constructorId, ...opts }) => {
       const result = await rh.data.getConstructorResults(constructorId, opts);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_constructor_standings",
     "Get championship standings history for a constructor across seasons. Available on every plan.",
     {
@@ -111,13 +112,13 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ constructorId, season }) => {
       const result = await rh.data.getConstructorStandings(constructorId, { season });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
   // ── Circuits ───────────────────────────────────────────────────────────────
 
-  server.tool(
+  tool(server,
     "list_circuits",
     "List all F1 circuits with location and coordinates. Available on every plan.",
     {
@@ -127,105 +128,105 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async (opts) => {
       const result = await rh.data.listCircuits(opts);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_circuit",
     "Get circuit details and analytics (compound priors, historical pace data). Available on every plan.",
     { circuitId: z.string().min(1).describe("Circuit slug, e.g. 'monaco'.") },
     async ({ circuitId }) => {
       const result = await rh.data.getCircuit(circuitId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
   // ── Seasons ────────────────────────────────────────────────────────────────
 
-  server.tool(
+  tool(server,
     "list_seasons",
     "List all available F1 seasons with race counts. Available on every plan.",
     {},
     async () => {
       const result = await rh.data.listSeasons();
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_season_standings",
     "Get final driver and constructor championship standings for a season. Available on every plan.",
     { year: z.number().int().describe("Season year, e.g. 2025.") },
     async ({ year }) => {
       const result = await rh.data.getSeasonStandings(year);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_season_races",
     "List all races in a season with circuit, date, and data quality tier. Available on every plan.",
     { year: z.number().int() },
     async ({ year }) => {
       const result = await rh.data.getSeasonRaces(year);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
   // ── Races ──────────────────────────────────────────────────────────────────
 
-  server.tool(
+  tool(server,
     "get_race",
     "Get race details with full results and qualifying grid. Available on every plan; timing fields (gaps, fastest lap, finish time, Q1/Q2/Q3 times) are only returned on Developer and above.",
     { raceId: z.string().min(1).describe("Race ID slug, e.g. '2026-bahrain-r1'.") },
     async ({ raceId }) => {
       const result = await rh.data.getRace(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_qualifying",
     "Get qualifying results for a race. Available on every plan; Q1/Q2/Q3 times are only returned on Developer and above.",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.data.getRaceQualifying(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_pitstops",
     "Get all pit stop records for a race (driver, stop number, lap, duration). Available on every plan.",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.data.getRacePitstops(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_tyres",
     "Get tyre stint records for a race (driver, stint number, lap range, compound, tyre age). Available on every plan.",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.data.getRaceTyres(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_weather",
     "Get lap-by-lap weather data for a race. Available on every plan.",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.data.getRaceWeather(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_laps",
     "Get per-lap times and positions for a race. Requires Developer or higher. " +
     "Optionally filter to a single driver with driverId.",
@@ -235,21 +236,21 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ raceId, driverId }) => {
       const result = await rh.data.getRaceLaps(raceId, { driverId });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_summary",
     "Get the post-race analytics status and aggregate telemetry metrics for a race. Status is available on every plan; the aggregate metrics are only returned on Developer and above.",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.data.getRaceSummary(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_telemetry_laps",
     "Get per-lap telemetry metrics (speed, throttle, brake, DRS, aggression) from telemetry data. Requires Developer or higher. " +
     "Optional driverId to filter to one driver.",
@@ -259,11 +260,11 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ raceId, driverId }) => {
       const result = await rh.data.getRaceTelemetryLaps(raceId, { driverId });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_telemetry_stints",
     "Get per-stint telemetry metrics and degradation slopes. Requires a Custom plan (not included in Developer).",
     {
@@ -272,37 +273,37 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ raceId, driverId }) => {
       const result = await rh.data.getRaceTelemetryStints(raceId, { driverId });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_telemetry_aggression",
     "Get driver aggression index rankings for a race. Requires a Custom plan (not included in Developer).",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.data.getRaceTelemetryAggression(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_session_analytics",
     "Get per-lap ML analytics snapshot for a session (pit probability, SC probability, tyre health, LTOE, win probability). Requires Developer or higher.",
     { sessionId: z.string().min(1).describe("Session ID, e.g. '2026-bahrain_r'.") },
     async ({ sessionId }) => {
       const result = await rh.data.getSessionAnalytics(sessionId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_event_pace",
     "Get practice and qualifying pace summary per driver for an event. Requires Developer or higher.",
     { eventId: z.string().min(1).describe("Event ID from list_events.") },
     async ({ eventId }) => {
       const result = await rh.data.getEventPace(eventId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 }

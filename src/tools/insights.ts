@@ -1,10 +1,11 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { RaceHooks } from "racehooks";
+import { tool } from "../helpers.js";
 
 export function registerInsightTools(server: McpServer, rh: RaceHooks): void {
 
-  server.tool(
+  tool(server,
     "list_insight_races",
     "List races that have a completed post-race analytics pipeline — i.e. races where get_race_insights will return data. Available on every plan.",
     {
@@ -12,11 +13,11 @@ export function registerInsightTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ season }) => {
       const result = await rh.insights.listRaces({ season });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_race_insights",
     "Get the full post-race ML analytics bundle for a race. Includes per-driver per-lap outputs: " +
     "pit stop probability, safety car probability, overtake probability, undercut probability, " +
@@ -27,11 +28,11 @@ export function registerInsightTools(server: McpServer, rh: RaceHooks): void {
     { raceId: z.string().min(1).describe("Race ID slug, e.g. '2026-bahrain-r1'.") },
     async ({ raceId }) => {
       const result = await rh.insights.getRace(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_model_meta",
     "Get the public model manifest for each RaceHooks predictive model: what it predicts, its model family, " +
     "a qualitative calibration tier, when it was last trained, and a changelog. Raw evaluation metrics are not exposed. " +
@@ -39,7 +40,7 @@ export function registerInsightTools(server: McpServer, rh: RaceHooks): void {
     {},
     async () => {
       const result = await rh.insights.getModelMeta();
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 }
