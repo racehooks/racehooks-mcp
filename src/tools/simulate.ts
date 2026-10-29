@@ -8,7 +8,7 @@ export function registerSimulateTools(server: McpServer, rh: RaceHooks): void {
 
   server.tool(
     "list_replay_sessions",
-    "List recorded F1 sessions that have archived data and can be replayed. Only completed sessions with archive paths are returned. " +
+    "List recorded sessions that have archived data and can be replayed. Only completed sessions with archive paths are returned. " +
     "Self-serve tiers (Free and Developer) list the current season only, plus the curated demo session; the full historical archive is on Custom. " +
     "`restrictedToSeason` in the response reports the applied limit.",
     {

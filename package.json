@@ -1,7 +1,7 @@
 {
   "name": "@racehooks/mcp",
   "version": "0.4.1",
-  "description": "MCP server for RaceHooks — motorsport analytics and data delivery for Claude, Cursor, and Windsurf",
+  "description": "Predictive models and analytics for motorsport, for AI assistants — race intelligence delivered to your endpoint.",
   "mcpName": "io.github.racehooks/racehooks-mcp",
   "type": "module",
   "repository": {
@@ -36,18 +36,15 @@
     "mcp",
     "mcp-server",
     "model-context-protocol",
-    "f1",
-    "formula1",
-    "formula-1",
     "webhook",
     "claude",
     "cursor",
     "windsurf",
     "ai",
-    "live-timing",
     "motorsport",
-    "f1-api",
-    "race-data"
+    "race-data",
+    "analytics",
+    "predictive-models"
   ],
   "license": "MIT",
   "publishConfig": {

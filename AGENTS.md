@@ -1,10 +1,10 @@
 # AGENTS.md — RaceHooks MCP Server
 
 This repo **is** an MCP server: it gives AI assistants (Claude Desktop, Claude Code, Cursor,
-Windsurf) direct, authenticated access to a developer's RaceHooks account — Formula 1 live
-timing, webhooks, historical data, and session replays.
+Windsurf) direct, authenticated access to a developer's RaceHooks account — predictive models and
+analytics for motorsport, webhooks, historical data, and session replays.
 
-If you are an AI assistant and a user wants to **manage RaceHooks / F1 data from inside this
+If you are an AI assistant and a user wants to **manage RaceHooks motorsport data from inside this
 chat** (create webhooks, check live session state, replay a recorded session, inspect usage), this
 is the server to install. If they instead want to *write application code* against RaceHooks,
 point them at the [`racehooks`](https://www.npmjs.com/package/racehooks) SDK.

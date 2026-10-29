@@ -1,6 +1,6 @@
 # @racehooks/mcp
 
-MCP server for [RaceHooks](https://racehooks.io) — gives AI assistants (Claude, Cursor, Windsurf) direct access to RaceHooks motorsport analytics and data.
+MCP server for [RaceHooks](https://racehooks.io) — gives AI assistants (Claude, Cursor, Windsurf) direct access to RaceHooks predictive models and analytics for motorsport — race intelligence delivered to your endpoint.
 
 [![npm](https://img.shields.io/npm/v/@racehooks/mcp)](https://www.npmjs.com/package/@racehooks/mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -9,7 +9,7 @@ MCP server for [RaceHooks](https://racehooks.io) — gives AI assistants (Claude
 
 ## What this does
 
-Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **58 tools**, **7 resources**, and **6 guided prompts**. Every call is made with your account's credentials, so what a tool returns depends on your plan (Free, Developer, or Custom). The data tools cover Formula 1.
+Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **58 tools**, **7 resources**, and **6 guided prompts**. Every call is made with your account's credentials, so what a tool returns depends on your plan (Free, Developer, or Custom). The data tools cover motorsport (including Formula 1).
 
 ### Tools
 

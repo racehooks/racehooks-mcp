@@ -1,0 +1,12 @@
+{
+  "name": "racehooks",
+  "description": "Predictive models and analytics for motorsport — race intelligence delivered to your endpoint.",
+  "version": "0.4.1",
+  "author": {
+    "name": "RaceHooks",
+    "email": "contact@racehooks.io"
+  },
+  "homepage": "https://racehooks.io",
+  "repository": "https://github.com/racehooks/racehooks-mcp",
+  "license": "MIT"
+}

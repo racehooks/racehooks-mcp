@@ -1,6 +1,6 @@
 name: racehooks-mcp
 displayName: RaceHooks
-description: F1 live timing tools for Claude, Cursor, and Windsurf — manage webhooks, stream live session data, and replay recorded sessions against your account.
+description: Predictive models and analytics for motorsport, for AI assistants — race intelligence delivered to your endpoint.
 homepage: https://racehooks.io
 license: MIT
 startCommand:

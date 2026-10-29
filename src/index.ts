@@ -76,7 +76,7 @@ async function main(): Promise<void> {
   server.resource(
     "live-session",
     "racehooks://live",
-    { description: "Current live F1 session context: flag status, lap counter, full driver standings with tyre compounds and intervals, and recent race control messages." },
+    { description: "Current live session context: flag status, lap counter, full driver standings with tyre compounds and intervals, and recent race control messages." },
     async () => {
       const result = await rh.live.context();
       return {
@@ -112,7 +112,7 @@ async function main(): Promise<void> {
   server.resource(
     "drivers",
     "racehooks://drivers",
-    { description: "Current-season F1 driver roster with car numbers and TLA codes." },
+    { description: "Current-season driver roster with car numbers and TLA codes." },
     async () => {
       const result = await rh.data.listDrivers({ active: true, limit: 25 });
       return {
@@ -124,7 +124,7 @@ async function main(): Promise<void> {
   server.resource(
     "circuits",
     "racehooks://circuits",
-    { description: "All F1 circuits in the RaceHooks database with location and country." },
+    { description: "All circuits in the RaceHooks database with location and country." },
     async () => {
       const result = await rh.data.listCircuits({ limit: 100 });
       return {
@@ -136,7 +136,7 @@ async function main(): Promise<void> {
   server.resource(
     "seasons",
     "racehooks://seasons",
-    { description: "All available F1 seasons in the RaceHooks database with race counts." },
+    { description: "All available seasons in the RaceHooks database with race counts." },
     async () => {
       const result = await rh.data.listSeasons();
       return {
@@ -200,7 +200,7 @@ async function main(): Promise<void> {
           text: "Give me a health check on my RaceHooks account. " +
                 "Call get_subscription, get_usage_by_feed, list_webhooks, and get_live_session in parallel, " +
                 "then summarise: my current tier and limits, how much of my monthly delivery budget I've used (broken down by feed), " +
-                "how many webhooks are active vs paused, and whether there is a live F1 session right now.",
+                "how many webhooks are active vs paused, and whether there is a live session right now.",
         },
       }],
     })
