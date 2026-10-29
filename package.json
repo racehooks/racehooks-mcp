@@ -1,6 +1,6 @@
 {
   "name": "@racehooks/mcp",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Predictive models and analytics for motorsport, for AI assistants — race intelligence delivered to your endpoint.",
   "mcpName": "io.github.racehooks/racehooks-mcp",
   "type": "module",
