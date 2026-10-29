@@ -8,5 +8,6 @@
   },
   "homepage": "https://racehooks.io",
   "repository": "https://github.com/racehooks/racehooks-mcp",
-  "license": "MIT"
+  "license": "MIT",
+  "icon": ".claude-plugin/icon.png"
 }
