@@ -1,10 +1,11 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { RaceHooks } from "racehooks";
+import { tool } from "../helpers.js";
 
 export function registerTelemetryTools(server: McpServer, rh: RaceHooks): void {
 
-  server.tool(
+  tool(server,
     "get_telemetry_laps",
     "Get per-lap telemetry aggregates (avg/max speed, throttle, brake, DRS, aggression index). " +
     "Returns all drivers by default. Filter with driverId or lapNumber. Requires Developer or higher.",
@@ -15,11 +16,11 @@ export function registerTelemetryTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ raceId, driverId, lapNumber }) => {
       const result = await rh.telemetry.getRaceLaps(raceId, { driverId, lapNumber });
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_telemetry_driver_laps",
     "Get per-lap telemetry for a single driver across all laps of a race. Requires Developer or higher.",
     {
@@ -28,11 +29,11 @@ export function registerTelemetryTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ raceId, driverId }) => {
       const result = await rh.telemetry.getDriverLaps(raceId, driverId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_telemetry_lap_comparison",
     "Get all drivers' telemetry for a single lap — useful for side-by-side lap comparisons. Requires Developer or higher.",
     {
@@ -41,17 +42,17 @@ export function registerTelemetryTools(server: McpServer, rh: RaceHooks): void {
     },
     async ({ raceId, lapNumber }) => {
       const result = await rh.telemetry.getLapComparison(raceId, lapNumber);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 
-  server.tool(
+  tool(server,
     "get_telemetry_race_summary",
     "Get race-level telemetry summary: max speed, fastest driver, average throttle/brake percentages, top aggression driver. Requires Developer or higher.",
     { raceId: z.string().min(1) },
     async ({ raceId }) => {
       const result = await rh.telemetry.getRaceSummary(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result) }] };
     }
   );
 }
