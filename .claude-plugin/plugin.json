@@ -1,13 +1,27 @@
 {
   "name": "racehooks",
+  "displayName": "RaceHooks",
   "description": "Predictive models and analytics for motorsport — race intelligence delivered to your endpoint.",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "author": {
     "name": "RaceHooks",
     "email": "contact@racehooks.io"
   },
   "homepage": "https://racehooks.io",
   "repository": "https://github.com/racehooks/racehooks-mcp",
+  "documentationUrl": "https://racehooks.io/docs/mcp",
+  "supportUrl": "https://racehooks.io/contact",
+  "privacyPolicyUrl": "https://racehooks.io/legal/privacy",
+  "termsOfServiceUrl": "https://racehooks.io/legal/terms",
   "license": "MIT",
+  "keywords": [
+    "motorsport",
+    "racing",
+    "predictions",
+    "analytics",
+    "models",
+    "strategy",
+    "mcp"
+  ],
   "icon": ".claude-plugin/icon.png"
 }

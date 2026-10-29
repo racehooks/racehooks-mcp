@@ -2,7 +2,7 @@
 // Propagate a version into server.json (the official MCP registry manifest),
 // which carries the version in two places: the top-level `version` and each
 // entry in `packages[]`. package.json is owned by @semantic-release/npm; this
-// script keeps server.json in lockstep so mcp-publisher validates cleanly.
+// script keeps server.json (and the Claude plugin files) in lockstep so mcp-publisher validates cleanly.
 //
 // Usage: node scripts/sync-version.mjs [version]
 //   With no argument, reads the version from package.json.
@@ -28,3 +28,15 @@ if (Array.isArray(manifest.packages)) {
 }
 writeFileSync(path, JSON.stringify(manifest, null, 2) + "\n");
 console.error(`[sync-version] server.json -> ${version}`);
+
+// The Claude plugin manifest and its .mcp.json pin must follow the release too,
+// or the plugin installs a stale npm version.
+const pluginPath = root + ".claude-plugin/plugin.json";
+const plugin = JSON.parse(readFileSync(pluginPath, "utf8"));
+plugin.version = version;
+writeFileSync(pluginPath, JSON.stringify(plugin, null, 2) + "\n");
+
+const mcpPath = root + ".mcp.json";
+const mcp = readFileSync(mcpPath, "utf8");
+writeFileSync(mcpPath, mcp.replace(/@racehooks\/mcp@[^"]+/g, `@racehooks/mcp@${version}`));
+console.error(`[sync-version] plugin.json, .mcp.json -> ${version}`);
