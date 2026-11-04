@@ -9,7 +9,6 @@ import { registerUsageTools } from "./tools/usage.js";
 import { registerSimulateTools } from "./tools/simulate.js";
 import { registerDataTools } from "./tools/data.js";
 import { registerInsightTools } from "./tools/insights.js";
-import { registerTelemetryTools } from "./tools/telemetry.js";
 import { registerFantasyTools } from "./tools/fantasy.js";
 
 // Per MCP best practice: never write to stdout in a stdio server.
@@ -56,7 +55,6 @@ async function main(): Promise<void> {
   registerSimulateTools(server, rh);
   registerDataTools(server, rh);
   registerInsightTools(server, rh);
-  registerTelemetryTools(server, rh);
   registerFantasyTools(server, rh);
 
   // ── Resources ─────────────────────────────────────────────────────────────

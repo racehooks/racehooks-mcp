@@ -15,7 +15,6 @@ import { registerUsageTools } from "../tools/usage.js";
 import { registerSimulateTools } from "../tools/simulate.js";
 import { registerDataTools } from "../tools/data.js";
 import { registerInsightTools } from "../tools/insights.js";
-import { registerTelemetryTools } from "../tools/telemetry.js";
 import { registerFantasyTools } from "../tools/fantasy.js";
 
 describe("MCP tool wiring", () => {
@@ -45,7 +44,6 @@ describe("MCP tool wiring", () => {
       registerSimulateTools,
       registerDataTools,
       registerInsightTools,
-      registerTelemetryTools,
       registerFantasyTools,
     ];
     for (const register of registrars) register(server, rh);

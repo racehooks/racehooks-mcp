@@ -241,53 +241,6 @@ export function registerDataTools(server: McpServer, rh: RaceHooks): void {
   );
 
   tool(server,
-    "get_race_summary",
-    "Get the post-race analytics status and aggregate telemetry metrics for a race. Status is available on every plan; the aggregate metrics are only returned on Developer and above.",
-    { raceId: z.string().min(1) },
-    async ({ raceId }) => {
-      const result = await rh.data.getRaceSummary(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
-    }
-  );
-
-  tool(server,
-    "get_race_telemetry_laps",
-    "Get per-lap telemetry metrics (speed, throttle, brake, DRS, aggression) from telemetry data. Requires Developer or higher. " +
-    "Optional driverId to filter to one driver.",
-    {
-      raceId:   z.string().min(1),
-      driverId: z.string().optional(),
-    },
-    async ({ raceId, driverId }) => {
-      const result = await rh.data.getRaceTelemetryLaps(raceId, { driverId });
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
-    }
-  );
-
-  tool(server,
-    "get_race_telemetry_stints",
-    "Get per-stint telemetry metrics and degradation slopes. Requires a Custom plan (not included in Developer).",
-    {
-      raceId:   z.string().min(1),
-      driverId: z.string().optional(),
-    },
-    async ({ raceId, driverId }) => {
-      const result = await rh.data.getRaceTelemetryStints(raceId, { driverId });
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
-    }
-  );
-
-  tool(server,
-    "get_race_telemetry_aggression",
-    "Get driver aggression index rankings for a race. Requires a Custom plan (not included in Developer).",
-    { raceId: z.string().min(1) },
-    async ({ raceId }) => {
-      const result = await rh.data.getRaceTelemetryAggression(raceId);
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
-    }
-  );
-
-  tool(server,
     "get_session_analytics",
     "Get per-lap ML analytics snapshot for a session (pit probability, SC probability, tyre health, LTOE, win probability). Requires Developer or higher.",
     { sessionId: z.string().min(1).describe("Session ID, e.g. '2026-bahrain_r'.") },

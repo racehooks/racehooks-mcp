@@ -9,7 +9,6 @@ import { registerUsageTools } from "../tools/usage.js";
 import { registerSimulateTools } from "../tools/simulate.js";
 import { registerDataTools } from "../tools/data.js";
 import { registerInsightTools } from "../tools/insights.js";
-import { registerTelemetryTools } from "../tools/telemetry.js";
 import { registerFantasyTools } from "../tools/fantasy.js";
 
 describe("tool annotations", () => {
@@ -23,11 +22,11 @@ describe("tool annotations", () => {
     };
     const rh = {} as RaceHooks;
     for (const r of [registerFeedTools, registerWebhookTools, registerLiveTools, registerUsageTools,
-      registerSimulateTools, registerDataTools, registerInsightTools, registerTelemetryTools, registerFantasyTools]) {
+      registerSimulateTools, registerDataTools, registerInsightTools, registerFantasyTools]) {
       r(server, rh);
     }
     const names = Object.keys(seen);
-    expect(names.length).toBeGreaterThanOrEqual(58);
+    expect(names.length).toBeGreaterThanOrEqual(50);
     for (const n of names) {
       const a = seen[n].annotations;
       expect(typeof a.title).toBe("string");
