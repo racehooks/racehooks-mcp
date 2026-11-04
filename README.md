@@ -9,7 +9,7 @@ MCP server for [RaceHooks](https://racehooks.io) — gives AI assistants (Claude
 
 ## What this does
 
-Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **58 tools**, **7 resources**, and **6 guided prompts**. Every call is made with your account's credentials, so what a tool returns depends on your plan (Free, Developer, or Custom). The data tools cover motorsport (including Formula 1).
+Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **50 tools**, **7 resources**, and **6 guided prompts**. Every call is made with your account's credentials, so what a tool returns depends on your plan (Free, Developer, or Custom). The data tools cover motorsport (including Formula 1).
 
 ### Tools
 
@@ -28,7 +28,6 @@ Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **5
 | `get_race_insights` | Per-driver, per-lap model outputs (pit, safety car, overtake, undercut, tyre health, cliff risk, LTOE, win probability, expected points) plus pit stops, stints, and lap times. | `raceId` | All (Free gets tyre state only; strategic predictions need Developer+) |
 | `get_model_meta` | Public model manifest: what each model predicts, model family, calibration tier, last trained. | — | All |
 | `get_session_analytics` | Per-lap analytics snapshot for a session. | `sessionId` | Developer+ |
-| `get_race_summary` | Post-race analytics status and aggregate telemetry metrics. | `raceId` | All (aggregates need Developer+) |
 
 **Races**
 
@@ -59,18 +58,6 @@ Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **5
 | `list_seasons` | Seasons with race counts. | — | All |
 | `get_season_standings` | Final driver and constructor standings for a season. | `year` | All |
 | `get_season_races` | Races in a season. | `year` | All |
-
-**Telemetry**
-
-| Tool | What it does | Key args | Plan |
-|---|---|---|---|
-| `get_telemetry_laps` | Per-lap telemetry aggregates (speed, throttle, brake, DRS, aggression). | `raceId`, `driverId`, `lapNumber` | Developer+ |
-| `get_telemetry_driver_laps` | Per-lap telemetry for one driver. | `raceId`, `driverId` | Developer+ |
-| `get_telemetry_lap_comparison` | Every driver's telemetry for one lap. | `raceId`, `lapNumber` | Developer+ |
-| `get_telemetry_race_summary` | Race-level telemetry summary. | `raceId` | Developer+ |
-| `get_race_telemetry_laps` | Per-lap telemetry metrics from the race data API. | `raceId`, `driverId` | Developer+ |
-| `get_race_telemetry_stints` | Per-stint telemetry and degradation slopes. | `raceId`, `driverId` | Custom |
-| `get_race_telemetry_aggression` | Driver aggression index rankings. | `raceId` | Custom |
 
 **Fantasy**
 

@@ -26,8 +26,8 @@ claude mcp add racehooks -e RACEHOOKS_CLIENT_ID=… -e RACEHOOKS_CLIENT_SECRET=�
 
 ## What it exposes
 
-- **Tools (58):** live session + events, post-race insights, races, history (drivers /
-  constructors / circuits / seasons), telemetry, fantasy, and account / usage / webhooks — see the
+- **Tools (50):** live session + events, post-race insights, races, history (drivers /
+  constructors / circuits / seasons), fantasy, and account / usage / webhooks — see the
   README for the full table and the plan each tool needs. Session replay: `list_replay_sessions`,
   `get_demo_session`, `get_replay_quota`, `prepare_replay`, `get_replay_status`.
 - **Resources (7):** `racehooks://feeds`, `racehooks://live`, `racehooks://webhooks`,
