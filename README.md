@@ -26,7 +26,7 @@ Exposes your [RaceHooks](https://racehooks.io) account to an AI assistant as **5
 |---|---|---|---|
 | `list_insight_races` | Races with a completed post-race analytics bundle. | `season` | All |
 | `get_race_insights` | Per-driver, per-lap model outputs (pit, safety car, overtake, undercut, tyre health, cliff risk, LTOE, win probability, expected points) plus pit stops, stints, and lap times. | `raceId` | All (Free gets tyre state only; strategic predictions need Developer+) |
-| `get_model_meta` | Public model manifest: what each model predicts, model family, calibration tier, last trained. | — | All |
+| `get_model_meta` | Public model manifest: each model's id, label, feed and status. | — | All |
 | `get_session_analytics` | Per-lap analytics snapshot for a session. | `sessionId` | Developer+ |
 | `get_race_summary` | Post-race analytics status and aggregate telemetry metrics. | `raceId` | All (aggregates need Developer+) |
 

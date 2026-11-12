@@ -34,8 +34,8 @@ export function registerInsightTools(server: McpServer, rh: RaceHooks): void {
 
   tool(server,
     "get_model_meta",
-    "Get the public model manifest for each RaceHooks predictive model: what it predicts, its model family, " +
-    "a qualitative calibration tier, when it was last trained, and a changelog. Raw evaluation metrics are not exposed. " +
+    "Get the public model manifest for each RaceHooks predictive model: its id, label, the feed it powers " +
+    "and its status. " +
     "Available on every plan.",
     {},
     async () => {
